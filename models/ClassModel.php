@@ -1,18 +1,16 @@
 <?php
 
-require_once '../config/Database.php';
-require_once '../interfaces/CRUD.php';
+require_once '../models/BaseModel.php';
 
-class ClassModel implements CRUD {
-    private $connection;
-    private $table = "classes";
+class ClassModel extends BaseModel {
+    protected $table = "classes";
 
     public $id;
     public $name;
     public $description;
 
     public function __construct($db) {
-        $this->connection = $db;
+        parent::__construct($db);
     }
 
     public function create() {

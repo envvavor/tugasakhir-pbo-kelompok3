@@ -1,11 +1,9 @@
 <?php
 
-require_once '../config/Database.php';
-require_once '../interfaces/CRUD.php';
+require_once '../models/BaseModel.php';
 
-class Subject implements CRUD {
-    private $connection;
-    private $table = "subjects";
+class Subject extends BaseModel {
+    protected $table = "subjects";
 
     public $id;
     public $class_id;
@@ -13,7 +11,7 @@ class Subject implements CRUD {
     public $description;
 
     public function __construct($db) {
-        $this->connection = $db;
+        parent::__construct($db);
     }
 
     public function create() {
@@ -32,13 +30,6 @@ class Subject implements CRUD {
             return true;
         }
         return false;
-    }
-
-    public function read() {
-        $query = "SELECT * FROM " . $this->table;
-        $stmt = $this->connection->prepare($query);
-        $stmt->execute();
-        return $stmt;
     }
 
     public function update() {

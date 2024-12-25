@@ -1,11 +1,9 @@
 <?php
 
-require_once '../config/Database.php';
-require_once '../interfaces/CRUD.php';
+require_once '../models/BaseModel.php';
 
-class Assignment implements CRUD {
-    private $connection;
-    private $table = "assignments";
+class Assignment extends BaseModel {
+    protected $table = "assignments";
 
     public $id;
     public $subject_id;
@@ -14,7 +12,7 @@ class Assignment implements CRUD {
     public $due_date;
 
     public function __construct($db) {
-        $this->connection = $db;
+        parent::__construct($db);
     }
 
     public function create() {
@@ -35,13 +33,6 @@ class Assignment implements CRUD {
             return true;
         }
         return false;
-    }
-
-    public function read() {
-        $query = "SELECT * FROM " . $this->table;
-        $stmt = $this->connection->prepare($query);
-        $stmt->execute();
-        return $stmt;
     }
 
     public function update() {

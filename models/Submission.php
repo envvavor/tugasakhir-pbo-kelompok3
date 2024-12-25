@@ -1,11 +1,9 @@
 <?php
 
-require_once '../config/Database.php';
-require_once '../interfaces/CRUD.php';
+require_once '../models/BaseModel.php';
 
-class Submission implements CRUD {
-    private $connection;
-    private $table = "submissions";
+class Submission extends BaseModel {
+    protected $table = "submissions";
 
     public $id;
     public $assignment_id;
@@ -14,7 +12,7 @@ class Submission implements CRUD {
     public $content;
 
     public function __construct($db) {
-        $this->connection = $db;
+        parent::__construct($db);
     }
 
     public function create() {
