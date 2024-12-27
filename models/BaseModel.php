@@ -3,7 +3,7 @@
 require_once '../config/Database.php';
 require_once '../interfaces/CRUD.php';
 
-class BaseModel implements CRUD {
+abstract class BaseModel implements CRUD {
     protected $connection;
     protected $table;
 
@@ -11,23 +11,16 @@ class BaseModel implements CRUD {
         $this->connection = $db;
     }
 
-    public function create() {
-        // Implement in derived classes
-    }
+    // Abstract methods to be implemented in derived classes
+    abstract public function create();
+    abstract public function update();
+    abstract public function delete();
 
     public function read() {
         $query = "SELECT * FROM " . $this->table;
         $stmt = $this->connection->prepare($query);
         $stmt->execute();
         return $stmt;
-    }
-
-    public function update() {
-        // Implement in derived classes
-    }
-
-    public function delete() {
-        // Implement in derived classes
     }
 }
 ?>
